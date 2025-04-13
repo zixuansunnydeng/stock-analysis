@@ -18,10 +18,17 @@ This project demonstrates how to use dbt (data build tool) with GCP BigQuery to 
 │   ├── variables.tf        # Terraform variables
 │   ├── outputs.tf          # Terraform outputs
 │   └── terraform.tfvars    # Terraform variables with your GCP project details
+├── kestra/                 # Kestra orchestration
+│   ├── docker-compose.yml  # Docker Compose configuration
+│   ├── application.yml     # Kestra configuration
+│   ├── stock_market_dbt_workflow.yml # Workflow definition
+│   ├── setup_kestra.sh     # Setup script for Kestra
+│   └── README.md           # Kestra documentation
 ├── scripts/                # Utility scripts
 │   ├── download_and_load_data_fixed.py # Script to download and load data
 │   ├── transform_csv_fixed.py # Script to transform CSV for BigQuery compatibility
 │   └── setup.sh            # Setup script to streamline installation
+├── stock_market_analysis.ipynb # Jupyter notebook for data visualization
 ├── data/                   # Local data directory (gitignored)
 ├── dbt_service_account_key.json # Service account key for dbt (gitignored)
 └── README.md               # This file
@@ -34,6 +41,7 @@ This project demonstrates how to use dbt (data build tool) with GCP BigQuery to 
 - dbt installed
 - Python 3.7+ installed
 - Kaggle account and API credentials
+- Docker and Docker Compose (for Kestra orchestration)
 
 ## Setup Instructions
 
@@ -165,6 +173,33 @@ This project demonstrates how to use dbt (data build tool) with GCP BigQuery to 
    - Intermediate models: Daily stock metrics calculations
    - Mart models: Aggregated stock performance metrics
 
+### 4. Set up Kestra Orchestration (Optional)
+
+Kestra is used to orchestrate the dbt workflow, providing scheduling, monitoring, and error handling.
+
+1. Navigate to the kestra directory:
+   ```
+   cd kestra
+   ```
+
+2. Make the setup script executable:
+   ```
+   chmod +x setup_kestra.sh
+   ```
+
+3. Run the setup script:
+   ```
+   ./setup_kestra.sh
+   ```
+
+4. Follow the prompts to enter your GCP Project ID and the path to your service account key file.
+
+5. Once the setup is complete, Kestra will be running in Docker containers. You can access the UI at http://localhost:8081.
+
+6. The workflow is configured to run daily at 2 AM, but you can also trigger it manually through the Kestra UI.
+
+For more details on the Kestra setup, see the [kestra/README.md](kestra/README.md) file.
+
 ## Data Models
 
 ### Staging Models
@@ -250,9 +285,11 @@ Possible enhancements to this project:
    - Volatility calculations
    - Moving averages and technical indicators
 
-2. **Set up scheduled refreshes**:
-   - Configure Cloud Scheduler to refresh the data periodically
-   - Set up dbt Cloud for automated runs
+2. **Enhance the orchestration**:
+   - Customize the Kestra workflow for your specific needs
+   - Add more data quality checks
+   - Configure email notifications for workflow failures
+   - Set up a CI/CD pipeline for the workflow
 
 3. **Create a dashboard**:
    - Build a Looker Studio dashboard for visualizing the data
