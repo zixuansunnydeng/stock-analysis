@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraformrc
+terraform.rc
+
+# dbt
+target/
+dbt_modules/
+logs/
+.user.yml
+
+# Kaggle
+.kaggle/
+
+# Data
+data/
+
+# Credentials and sensitive files
+dbt_service_account_key.json
+*_key.json
+*_credentials.json
+*_secret.json
+# Jupyter
+.ipynb_checkpoints/
+
+# Misc
+.env
+.venv
+.DS_Store

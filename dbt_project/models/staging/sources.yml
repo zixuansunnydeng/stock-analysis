@@ -1,0 +1,48 @@
+version: 2
+
+sources:
+  - name: raw
+    database: '{{ target.project }}'
+    schema: '{{ target.dataset }}'
+    tables:
+      - name: stock_market_raw
+        description: 'Raw stock market data from 2019-2024'
+        columns:
+          - name: row_id
+            description: 'Row identifier'
+          - name: date
+            description: 'Trading date'
+          - name: Natural_Gas_Price
+            description: 'Natural Gas Price'
+          - name: Natural_Gas_Vol_
+            description: 'Natural Gas Volume'
+          - name: Crude_oil_Price
+            description: 'Crude Oil Price'
+          - name: Crude_oil_Vol_
+            description: 'Crude Oil Volume'
+          - name: Bitcoin_Price
+            description: 'Bitcoin Price'
+          - name: Bitcoin_Vol_
+            description: 'Bitcoin Volume'
+          - name: SandP_500_Price
+            description: 'S&P 500 Price'
+          - name: Nasdaq_100_Price
+            description: 'Nasdaq 100 Price'
+          - name: Nasdaq_100_Vol_
+            description: 'Nasdaq 100 Volume'
+          - name: Apple_Price
+            description: 'Apple Stock Price'
+          - name: Apple_Vol_
+            description: 'Apple Trading Volume'
+          - name: Tesla_Price
+            description: 'Tesla Stock Price'
+          - name: Tesla_Vol_
+            description: 'Tesla Trading Volume'
+          - name: Microsoft_Price
+            description: 'Microsoft Stock Price'
+          - name: Microsoft_Vol_
+            description: 'Microsoft Trading Volume'
+          - name: Gold_Price
+            description: 'Gold Price'
+          - name: Gold_Vol_
+            description: 'Gold Trading Volume'
