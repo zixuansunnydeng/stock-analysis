@@ -366,7 +366,7 @@ cd stock-analysis
    chmod 600 ~/.kaggle/kaggle.json
    ```
 
-2. Run the data download and transformation scripts:
+2. (Optional if you set up Kestra) Run the data download and transformation scripts:
    ```bash
    python scripts/download_and_load_data_fixed.py \
      --project-id=your-gcp-project-id \
@@ -374,7 +374,7 @@ cd stock-analysis
      --dataset-id=stock_market_data
    ```
 
-### 4. Set up dbt
+### 4. Set up dbt 
 
 1. Create the dbt profiles file:
    ```bash
@@ -382,42 +382,19 @@ cd stock-analysis
    # Create profiles.yml with your configuration
    ```
 
-2. Create the required BigQuery datasets:
+
+### 5. Set up Kestra Orchestration
+
+1. run docker:
    ```bash
-   bq mk --dataset --location=us-central1 your-gcp-project-id:stock_market_data_staging
-   bq mk --dataset --location=us-central1 your-gcp-project-id:stock_market_data_intermediate
-   bq mk --dataset --location=us-central1 your-gcp-project-id:stock_market_data_marts
+   docker-compose up -d
    ```
 
-3. Run dbt models:
-   ```bash
-   cd dbt_project
-   dbt debug
-   dbt run
-   ```
+2. Access the Kestra UI at http://localhost:8080
 
-### 5. Set up Kestra Orchestration (Optional)
+### 6. Open Jupiter Notebook
 
-1. Navigate to the kestra directory and run the setup script:
-   ```bash
-   cd kestra
-   chmod +x setup_kestra.sh
-   ./setup_kestra.sh
-   ```
 
-2. Access the Kestra UI at http://localhost:8082
-
-### 6. Run the Dashboard
-
-1. Install required packages:
-   ```bash
-   pip install streamlit pandas plotly google-cloud-bigquery
-   ```
-
-2. Run the Streamlit dashboard:
-   ```bash
-   streamlit run dashboards/stock_market_app.py
-   ```
 
 ## Future Improvements
 
@@ -460,3 +437,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [dbt Labs](https://www.getdbt.com/) for the excellent data transformation framework
 - [Kestra](https://kestra.io/) for the workflow orchestration platform
 - [Google Cloud Platform](https://cloud.google.com/) for the cloud infrastructure
+- [Terraform](https://www.terraform.io/) for automate infrasture on any cloud
+- [Kaggle[(https://www.kaggle.com/) for getting data
