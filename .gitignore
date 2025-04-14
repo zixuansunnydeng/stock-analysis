@@ -56,3 +56,5 @@ kestra/service-account-key.json
 .venv
 .DS_Store
 .example
+
+.streamlit/secrets.toml
