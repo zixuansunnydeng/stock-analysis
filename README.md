@@ -47,7 +47,7 @@ The pipeline follows a modern data architecture:
 2. **Infrastructure**: GCP (BigQuery, Cloud Storage) provisioned with Terraform
 3. **Transformation**: dbt models for data cleaning and analytics
 4. **Orchestration**: Kestra for workflow scheduling and monitoring
-5. **Visualization**: Interactive dashboards with Plotly
+5. **Visualization**: Interactive dashboards with Plotly in Jupyter Notebook
 
 ## Technologies
 
@@ -56,7 +56,7 @@ The pipeline follows a modern data architecture:
 - **Data Transformation**: dbt (data build tool)
 - **Orchestration**: Kestra
 - **Data Processing**: Python, Pandas
-- **Visualization**: Plotly
+- **Visualization**: Jupyter Notebook, Plotly
 - **Version Control**: Git
 - **Containerization**: Docker
 
@@ -113,7 +113,7 @@ The data pipeline consists of the following stages:
 2. **Storage**: Store raw data in Google Cloud Storage and BigQuery
 3. **Transformation**: Process data using dbt models (staging → intermediate → marts)
 4. **Orchestration**: Schedule and monitor workflows with Kestra
-5. **Visualization**: Create interactive dashboards with Plotly and Streamlit
+5. **Visualization**: Create interactive dashboards in Jupyter Notebook.
 
 ### dbt Data Models
 
