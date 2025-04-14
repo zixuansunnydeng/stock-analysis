@@ -438,4 +438,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Kestra](https://kestra.io/) for the workflow orchestration platform
 - [Google Cloud Platform](https://cloud.google.com/) for the cloud infrastructure
 - [Terraform](https://www.terraform.io/) for automate infrasture on any cloud
-- [Kaggle[(https://www.kaggle.com/) for getting data
+- [Kaggle](https://www.kaggle.com/) for getting data
