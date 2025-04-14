@@ -177,25 +177,13 @@ Recent Market Trends (1: Bullish, -1: Bearish, 0: Neutral):
 
 ### Portfolio Optimization Results
 
-Maximum Sharpe Ratio Portfolio:
-Expected Annual Return: 33.50%
-Expected Annual Volatility: 25.28%
+Maximum Sharpe Ratio Portfolio:\
+Expected Annual Return: 33.50%\
+Expected Annual Volatility: 25.28%\
 Sharpe Ratio: 1.25
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -235,25 +223,12 @@ Sharpe Ratio: 1.25
 </div>
 
 
-Minimum Variance Portfolio:
-Expected Annual Return: 9.27%
-Expected Annual Volatility: 11.16%
+Minimum Variance Portfolio:\
+Expected Annual Return: 9.27%\
+Expected Annual Volatility: 11.16%\
 Sharpe Ratio: 0.65
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -293,25 +268,12 @@ Sharpe Ratio: 0.65
 </div>
 
 
-Equal Weight Portfolio:
-Expected Annual Return: 26.91%
-Expected Annual Volatility: 20.72%
+Equal Weight Portfolio:\
+Expected Annual Return: 26.91%\
+Expected Annual Volatility: 20.72%\
 Sharpe Ratio: 1.20
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
