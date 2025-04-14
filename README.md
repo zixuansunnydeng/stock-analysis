@@ -194,7 +194,7 @@ Kestra is used to orchestrate the dbt workflow, providing scheduling, monitoring
 
 4. Follow the prompts to enter your GCP Project ID and the path to your service account key file.
 
-5. Once the setup is complete, Kestra will be running in Docker containers. You can access the UI at http://localhost:8081.
+5. Once the setup is complete, Kestra will be running in Docker containers. You can access the UI at http://localhost:8082.
 
 6. The workflow is configured to run daily at 2 AM, but you can also trigger it manually through the Kestra UI.
 

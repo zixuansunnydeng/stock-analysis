@@ -45,6 +45,9 @@ dbt_service_account_key.json
 *_key.json
 *_credentials.json
 *_secret.json
+service-account-key.json
+kestra/secrets/
+kestra/service-account-key.json
 # Jupyter
 .ipynb_checkpoints/
 
@@ -52,3 +55,4 @@ dbt_service_account_key.json
 .env
 .venv
 .DS_Store
+.example

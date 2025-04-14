@@ -1,0 +1,309 @@
+id: stock_market_dbt_workflow
+namespace: stock_market_analysis
+
+description: |
+  This workflow orchestrates the complete stock market data pipeline.
+  It downloads data from Kaggle, transforms it, loads it to BigQuery,
+  and runs dbt transformations.
+
+variables:
+  file: 'Stock Market Dataset.csv'
+  gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}"
+  table: "{{kv('GCP_DATASET')}}.stock_market_raw"
+
+tasks:
+  - id: setup_environment
+    type: io.kestra.plugin.core.flow.WorkingDirectory
+    tasks:
+      - id: clone_repository
+        type: io.kestra.plugin.git.Clone
+        url: https://github.com/zixuansunnydeng/stock-analysis.git
+        branch: main
+
+      - id: install_dependencies
+        type: io.kestra.plugin.scripts.shell.Commands
+        commands:
+          - pip install --upgrade pip
+          - pip install google-cloud-bigquery google-cloud-storage pandas kaggle
+        taskRunner:
+          type: io.kestra.plugin.scripts.runner.docker.Docker
+          image: python:3.9
+
+  - id: setup_kaggle
+    type: io.kestra.plugin.scripts.shell.Commands
+    commands:
+      - mkdir -p ~/.kaggle
+      - echo '{"username":"{{ kv('KAGGLE_USERNAME') }}","key":"{{ kv('KAGGLE_KEY') }}"}' > ~/.kaggle/kaggle.json
+      - chmod 600 ~/.kaggle/kaggle.json
+    taskRunner:
+      type: io.kestra.plugin.scripts.runner.docker.Docker
+      image: python:3.9
+
+  - id: download_and_transform_data
+    type: io.kestra.plugin.scripts.python.Script
+    outputFiles:
+      - '*.csv'
+    script: |
+      import kaggle
+      import pandas as pd
+      import os
+      import tempfile
+      from datetime import datetime
+
+      # Download data from Kaggle
+      print("Downloading data from Kaggle...")
+      kaggle.api.dataset_download_files(
+          'saurav9786/stock-market-dataset',
+          path=tempfile.gettempdir(),
+          unzip=True
+      )
+
+      # Read and transform the CSV
+      print("Transforming data...")
+      df = pd.read_csv(os.path.join(tempfile.gettempdir(), '{{render(vars.file)}}'))
+
+      # Transform date format
+      df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')
+
+      # Save transformed data
+      transformed_file = os.path.join(tempfile.gettempdir(), '{{render(vars.file)}}')
+      df.to_csv(transformed_file, index=False)
+      print("Data transformation completed successfully!")
+    taskRunner:
+      type: io.kestra.plugin.scripts.runner.docker.Docker
+      image: python:3.9
+
+  - id: upload_gcs
+    type: io.kestra.plugin.gcp.gcs.Upload
+    from: '{{render(vars.file)}}'
+    to: '{{render(vars.gcs_file)}}'
+    serviceAccount: "{{kv('GCP_CREDS')}}"
+
+  - id: create_bigquery_table
+    type: io.kestra.plugin.gcp.bigquery.Query
+    serviceAccount: "{{kv('GCP_CREDS')}}"
+    projectId: "{{kv('GCP_PROJECT_ID')}}"
+    sql: |
+      CREATE TABLE IF NOT EXISTS `{{kv('GCP_PROJECT_ID')}}.{{kv('GCP_DATASET')}}.stock_market_raw`
+      (
+        Date DATE,
+        Open FLOAT64,
+        High FLOAT64,
+        Low FLOAT64,
+        Close FLOAT64,
+        Adj_Close FLOAT64,
+        Volume INT64,
+        SP500 FLOAT64,
+        NASDAQ FLOAT64,
+        DJI FLOAT64,
+        Gold FLOAT64,
+        Silver FLOAT64,
+        Platinum FLOAT64,
+        Oil FLOAT64,
+        Ethereum FLOAT64,
+        Bitcoin FLOAT64,
+        Litecoin FLOAT64,
+        Cardano FLOAT64,
+        Stellar FLOAT64,
+        XRP FLOAT64,
+        Dogecoin FLOAT64,
+        Binance_Coin FLOAT64,
+        Tether FLOAT64,
+        USD_Coin FLOAT64,
+        Uniswap FLOAT64,
+        Chainlink FLOAT64,
+        Bitcoin_Cash FLOAT64,
+        Monero FLOAT64,
+        EOS FLOAT64,
+        TRON FLOAT64,
+        Filecoin FLOAT64,
+        Tezos FLOAT64,
+        Cosmos FLOAT64,
+        Maker FLOAT64,
+        Dash FLOAT64,
+        Zcash FLOAT64,
+        Decred FLOAT64,
+        Qtum FLOAT64,
+        Waves FLOAT64,
+        NEM FLOAT64,
+        ICON FLOAT64,
+        Nano FLOAT64,
+        DigiByte FLOAT64,
+        Siacoin FLOAT64,
+        Verge FLOAT64,
+        Ravencoin FLOAT64,
+        Horizen FLOAT64,
+        Komodo FLOAT64,
+        PIVX FLOAT64,
+        Reddcoin FLOAT64,
+        Syscoin FLOAT64,
+        Groestlcoin FLOAT64,
+        Vertcoin FLOAT64,
+        Peercoin FLOAT64,
+        Namecoin FLOAT64,
+        Emercoin FLOAT64,
+        Cloakcoin FLOAT64,
+        Navcoin FLOAT64,
+        Einsteinium FLOAT64,
+        Faircoin FLOAT64,
+        Potcoin FLOAT64,
+        BitBay FLOAT64,
+        BitSend FLOAT64,
+        Bitmark FLOAT64,
+        BitShares FLOAT64,
+        BitTube FLOAT64,
+        BitZeny FLOAT64,
+        BlackCoin FLOAT64,
+        Boolberry FLOAT64,
+        Bytecoin FLOAT64,
+        Crown FLOAT64,
+        Curecoin FLOAT64,
+        Diamond FLOAT64,
+        DigitalNote FLOAT64,
+        Dogecoin_Dark FLOAT64,
+        Einsteinium FLOAT64,
+        Elastos FLOAT64,
+        Electroneum FLOAT64,
+        Emercoin FLOAT64,
+        Feathercoin FLOAT64,
+        GameCredits FLOAT64,
+        Gas FLOAT64,
+        Genesis_Vision FLOAT64,
+        Golem FLOAT64,
+        GXChain FLOAT64,
+        Hshare FLOAT64,
+        Iconomi FLOAT64,
+        IOST FLOAT64,
+        IOTA FLOAT64,
+        Kin FLOAT64,
+        Komodo FLOAT64,
+        Kyber_Network FLOAT64,
+        Lisk FLOAT64,
+        Loopring FLOAT64,
+        MaidSafeCoin FLOAT64,
+        Metal FLOAT64,
+        MobileGo FLOAT64,
+        MonaCoin FLOAT64,
+        Nebulas FLOAT64,
+        NEM FLOAT64,
+        NEO FLOAT64,
+        Nxt FLOAT64,
+        OmiseGo FLOAT64,
+        Ontology FLOAT64,
+        PIVX FLOAT64,
+        Populous FLOAT64,
+        Power_Ledger FLOAT64,
+        Qtum FLOAT64,
+        QuarkChain FLOAT64,
+        Request_Network FLOAT64,
+        Revain FLOAT64,
+        Salt FLOAT64,
+        Siacoin FLOAT64,
+        Status FLOAT64,
+        Steem FLOAT64,
+        Storj FLOAT64,
+        Stratis FLOAT64,
+        Syscoin FLOAT64,
+        TenX FLOAT64,
+        Tether FLOAT64,
+        Tron FLOAT64,
+        VeChain FLOAT64,
+        Verge FLOAT64,
+        Vertcoin FLOAT64,
+        Viberate FLOAT64,
+        Viacoin FLOAT64,
+        Walton FLOAT64,
+        Waves FLOAT64,
+        WAX FLOAT64,
+        Zcash FLOAT64,
+        Zcoin FLOAT64,
+        Zilliqa FLOAT64
+      )
+      PARTITION BY Date
+      CLUSTER BY SP500, NASDAQ, DJI
+
+  - id: load_to_bigquery
+    type: io.kestra.plugin.gcp.bigquery.Query
+    serviceAccount: "{{kv('GCP_CREDS')}}"
+    projectId: "{{kv('GCP_PROJECT_ID')}}"
+    sql: |
+      LOAD DATA OVERWRITE `{{kv('GCP_PROJECT_ID')}}.{{kv('GCP_DATASET')}}.stock_market_raw`
+      FROM FILES (
+        format = 'CSV',
+        uris = ['{{render(vars.gcs_file)}}'],
+        skip_leading_rows = 1
+      );
+
+  - id: sync_dbt
+    type: io.kestra.plugin.git.SyncNamespaceFiles
+    url: https://github.com/zixuansunnydeng/stock-analysis
+    gitDirectory: dbt_project
+    namespace: '{{ flow.namespace }}'
+    branch: main
+
+  - id: run_dbt_models
+    type: io.kestra.plugin.dbt.cli.DbtCLI
+    env:
+      DBT_DATABASE: "{{kv('GCP_PROJECT_ID')}}"
+      DBT_SCHEMA: "{{kv('GCP_DATASET')}}"
+    namespaceFiles:
+      enabled: true
+    taskRunner:
+      type: io.kestra.plugin.scripts.runner.docker.Docker
+      image: ghcr.io/dbt-labs/dbt-bigquery:1.5.1
+    inputFiles:
+      sa.json: "{{kv('GCP_CREDS')}}"
+    commands:
+      - dbt deps
+      - dbt run --models staging
+      - dbt run --models intermediate
+      - dbt run --models marts
+    storeManifest:
+      key: manifest.json
+      namespace: '{{ flow.namespace }}'
+    profiles: |
+      stock_market:
+        target: prod
+        outputs:
+          prod:
+            type: bigquery
+            method: service-account
+            project: "{{kv('GCP_PROJECT_ID')}}"
+            dataset: "{{kv('GCP_DATASET')}}"
+            threads: 4
+            keyfile: sa.json
+            timeout_seconds: 300
+            location: "{{kv('GCP_LOCATION')}}"
+            priority: interactive
+
+  - id: data_quality_checks
+    type: io.kestra.plugin.gcp.bigquery.Query
+    serviceAccount: "{{kv('GCP_CREDS')}}"
+    projectId: "{{kv('GCP_PROJECT_ID')}}"
+    sql: |
+      SELECT
+        COUNT(*) as total_rows,
+        COUNT(DISTINCT Date) as unique_dates,
+        MIN(Date) as earliest_date,
+        MAX(Date) as latest_date,
+        COUNT(CASE WHEN SP500 IS NULL THEN 1 END) as null_sp500,
+        COUNT(CASE WHEN NASDAQ IS NULL THEN 1 END) as null_nasdaq,
+        COUNT(CASE WHEN DJI IS NULL THEN 1 END) as null_dji
+      FROM `{{kv('GCP_PROJECT_ID')}}.{{kv('GCP_DATASET')}}.stock_market_raw`
+
+  - id: notify_success
+    type: io.kestra.plugin.core.log.Log
+    message: 'Stock market data pipeline completed successfully!'
+
+triggers:
+  - id: schedule
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: '0 2 * * *' # Run daily at 2 AM
+
+  - id: manual
+    type: io.kestra.plugin.core.trigger.Flow
+    inputs:
+      run_mode:
+        type: STRING
+        required: false
+        defaults: 'full'
