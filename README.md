@@ -1,6 +1,6 @@
 # Stock Market Analytics Pipeline
 
-![Portfolio Photo](portfolio.jpg)
+![Portfolio Photo](images/portfolio.jpg)
 
 ## Project Overview
 
