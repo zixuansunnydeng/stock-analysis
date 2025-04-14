@@ -39,7 +39,7 @@ This project aims to address the following core questions:
 
 ### Architecture
 
-![Architecture Diagram](architecture.png)
+![Architecture Diagram](images/architecture.png)
 
 The pipeline follows a modern data architecture:
 
@@ -147,7 +147,212 @@ The project includes interactive dashboards for analyzing stock market data:
 3. **Correlation Analysis**: Understand relationships between different assets
 4. **Portfolio Optimization**: Explore optimal asset allocation strategies
 
-![Dashboard Preview](https://raw.githubusercontent.com/zixuansunnydeng/stock-analysis/main/images/dashboard_preview.png)
+
+## Key Findings
+
+The analysis of US stock market data from 2019-2024 revealed several insights:
+
+1. **Tech Sector Performance**: Tech stocks consistently outperformed broader market indices, with an average annual return of 22.3% compared to 15.7% for the S&P 500.
+
+2. **Correlation Patterns**: Cryptocurrency assets showed lower correlation with traditional markets (0.35 correlation coefficient), offering potential diversification benefits.
+
+3. **Volatility Trends**: Market volatility peaked during the COVID-19 pandemic (March 2020) but has since stabilized to pre-pandemic levels.
+
+4. **Sector Rotation**: Clear evidence of sector rotation was observed, with different sectors leading returns in different economic environments.
+
+
+![S&P500 and NASDAQ Monthly Average Prices](images/S&P500%20and%20NASDAQ%20Monthly%20Average%20Prices.png)
+
+
+![tech performance](images/tech_performance.png)
+
+![market performance during key events](images/market_performance_key_events.png)
+
+![correlationship between different asset classes](images/correlation_between_different_assets.png)   
+
+![risk and return analysis of different asset classes](images/risk_return_analysis_different_asset_classes.png)
+
+![Recent market trend](images/Recent_Market_Trend.png)
+Recent Market Trends (1: Bullish, -1: Bearish, 0: Neutral):
+
+### Portfolio Optimization Results
+
+Maximum Sharpe Ratio Portfolio:
+Expected Annual Return: 33.50%
+Expected Annual Volatility: 25.28%
+Sharpe Ratio: 1.25
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Asset</th>
+      <th>Allocation (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>nasdaq</td>
+      <td>51.92</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>crypto</td>
+      <td>25.03</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tech</td>
+      <td>23.05</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>sp500</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>commodity</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+Minimum Variance Portfolio:
+Expected Annual Return: 9.27%
+Expected Annual Volatility: 11.16%
+Sharpe Ratio: 0.65
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Asset</th>
+      <th>Allocation (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>commodity</td>
+      <td>63.81</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>sp500</td>
+      <td>36.19</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>nasdaq</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tech</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>crypto</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+Equal Weight Portfolio:
+Expected Annual Return: 26.91%
+Expected Annual Volatility: 20.72%
+Sharpe Ratio: 1.20
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Asset</th>
+      <th>Allocation (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>sp500</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>nasdaq</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tech</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>commodity</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>crypto</td>
+      <td>20.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+![portfolio optimization results](images/optimal_portfolio.png)
+
 
 ## Setup Instructions
 
@@ -252,18 +457,6 @@ cd stock-analysis
    streamlit run dashboards/stock_market_app.py
    ```
 
-## Key Findings
-
-The analysis of US stock market data from 2019-2024 revealed several insights:
-
-1. **Tech Sector Performance**: Tech stocks consistently outperformed broader market indices, with an average annual return of 22.3% compared to 15.7% for the S&P 500.
-
-2. **Correlation Patterns**: Cryptocurrency assets showed lower correlation with traditional markets (0.35 correlation coefficient), offering potential diversification benefits.
-
-3. **Volatility Trends**: Market volatility peaked during the COVID-19 pandemic (March 2020) but has since stabilized to pre-pandemic levels.
-
-4. **Sector Rotation**: Clear evidence of sector rotation was observed, with different sectors leading returns in different economic environments.
-
 ## Future Improvements
 
 Potential enhancements to this project:
@@ -271,8 +464,9 @@ Potential enhancements to this project:
 1. **Real-time Data Integration**: Incorporate real-time market data feeds
 2. **Machine Learning Models**: Implement predictive models for market trends
 3. **Advanced Analytics**: Add technical indicators and sentiment analysis
-4. **Enhanced Visualization**: Create more interactive and customizable dashboards
+4. **Enhanced Visualization**: Create more interactive and customizable dashboards in an App.
 5. **CI/CD Pipeline**: Implement automated testing and deployment
+6. **Data**: Change to a more recent dataset that updates daily. 
 
 ## Troubleshooting
 
