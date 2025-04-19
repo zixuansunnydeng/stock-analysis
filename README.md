@@ -226,6 +226,9 @@ Sharpe Ratio: 1.25
 </table>
 </div>
 
+![Maximum Sharpe Ratio Portfolio](images/maximum_sharpe_ratio_portfolio_allocation.png)
+
+
 
 Minimum Variance Portfolio:\
 Expected Annual Return: 9.27%\
@@ -270,6 +273,8 @@ Sharpe Ratio: 0.65
   </tbody>
 </table>
 </div>
+
+![Minimum Variance Portfolio](images/minmum_variance_portfolio_allocation.png)
 
 
 Equal Weight Portfolio:\
