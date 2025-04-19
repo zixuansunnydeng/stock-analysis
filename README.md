@@ -147,8 +147,10 @@ The project includes interactive dashboards for analyzing stock market data:
 3. **Correlation Analysis**: Understand relationships between different assets
 4. **Portfolio Optimization**: Explore optimal asset allocation strategies
 
+Below is the screenshots of the visualizations, you can also check the [Jupiter Notebook here](https://github.com/zixuansunnydeng/stock-analysis/blob/main/stock_market_analysis.ipynb)
 
-## Key Findings
+
+### Key Findings
 
 The analysis of US stock market data from 2019-2024 revealed several insights:
 
@@ -160,9 +162,11 @@ The analysis of US stock market data from 2019-2024 revealed several insights:
 
 4. **Sector Rotation**: Clear evidence of sector rotation was observed, with different sectors leading returns in different economic environments.
 
+Dashboard photos
+
+![Overal Performance](images/Dashboard%20Performance.png)
 
 ![S&P500 and NASDAQ Monthly Average Prices](images/S&P500%20and%20NASDAQ%20Monthly%20Average%20Prices.png)
-
 
 ![tech performance](images/tech_performance.png)
 
